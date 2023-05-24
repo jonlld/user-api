@@ -1,0 +1,10 @@
+### dotenv ###
+.env
+
+### Node ###
+# Dependency directories
+node_modules/
+
+### macOS ###
+# General
+.DS_Store
