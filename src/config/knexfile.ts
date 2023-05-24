@@ -1,8 +1,10 @@
 import { Knex } from "knex";
 import dotenv from "dotenv";
+import path from "path";
 
-// Specify explicit path as loaded by Knex CLI
-dotenv.config({ path: "../../.env" });
+// Path changes for server operations vs. migrations.
+// Therefore, use absolute path to .env file from current directory
+dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 
 // Note type, from @types/knex
 const knexConfig: { [key: string]: Knex.Config } = {
@@ -14,8 +16,6 @@ const knexConfig: { [key: string]: Knex.Config } = {
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
     },
-    // TODO development only
-    // debug: true,
     migrations: {
       // Relative position from dynamic path
       directory: __dirname + "/../database/migrations",
@@ -23,5 +23,4 @@ const knexConfig: { [key: string]: Knex.Config } = {
   },
 };
 
-// Export knexConfig
 export default knexConfig;
