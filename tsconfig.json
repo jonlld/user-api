@@ -4,8 +4,8 @@
     "module": "commonjs",
     "outDir": "./dist",
     "strict": true,
-    "esModuleInterop": true
+    "esModuleInterop": true // allow ES6 Modules
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts"], // all .ts files in src
   "exclude": ["node_modules"]
 }
