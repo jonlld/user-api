@@ -16,3 +16,11 @@
 
 - Create a .env file and include in .gitignore
   - Set DB_NAME, DB_USER, and DB_PASSWORD to match local database settings
+
+### Migrations
+
+- Run the migrations file with the following command to set up the Users table
+  `npx knex migrate:latest --knexfile ./src/config/knexfile.ts`
+
+- Note, migration files may be updated with commands such as:
+  `npx knex --knexfile ./src/config/knexfile.ts migrate:make update_users_table`
