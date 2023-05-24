@@ -10,11 +10,11 @@
 
 - Install Postgres and ensure it is running; create a local database via CLI:
 
-  - `echo "CREATE DATABASE users;" | psql`
+  - `echo "CREATE DATABASE user_api;" | psql`
 
 - Verify database exists:
 
-  - `psql -d users`
+  - `psql -d user_api`
 
 - Create a .env file in the root folder and add this to .gitignore
   - Set DB_NAME, DB_USER, and DB_PASSWORD to match local database settings
