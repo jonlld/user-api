@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import { urlencoded } from "express";
 
 // Import routers
 import { authRouter } from "./routes/auth";
@@ -10,7 +11,8 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-// Middleware
+// To parse either form data or JSON
+app.use(urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 
