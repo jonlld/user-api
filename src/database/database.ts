@@ -10,4 +10,4 @@ const configOptions = knexConfig[environment];
 
 const knexInstance = knex(configOptions);
 
-export default knexInstance;
+export { knexInstance as knex };
