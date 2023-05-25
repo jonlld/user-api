@@ -28,6 +28,13 @@
 - Note, migration files may be updated with commands such as:
   - `npx knex --knexfile ./src/config/knexfile.ts migrate:make update_users_table`
 
+### Setting up JWT Secret
+
+- Choose a secret value and set ACCESS_TOKEN_SECRET in .env
+
+- One way to generate a token string is to run the following in a node terminal:
+  - `require('crypto').randomBytes(64).toString('hex')`
+
 ### Running the Development Server
 
 Use the following command to start the development server.

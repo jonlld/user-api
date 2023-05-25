@@ -39,9 +39,29 @@ router.post("/login", async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
 
-    // Check if user does actually exist
+    // Check if user exists; if no record, return 'no resource' and message
     const user = await knex("users").where({ email }).first();
-    res.status(201).json({ name: user.name, email: user.email });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // If user exists, check password
+    // If no match, return 'invalid' and message
+    const pswdMatch = await bcrypt.compare(password, user.password);
+    if (!pswdMatch) {
+      return res.status(401).json({ error: "Invalid password" });
+    }
+
+    // If ok, issue 1hr token
+    // Sign takes payload, key, options (using 'as string' type assertion)
+    const token = jwt.sign(
+      { id: user.id, email: user.email },
+      process.env.ACCESS_TOKEN_SECRET as string,
+      { expiresIn: "1h" }
+    );
+
+    // Respond to client with token
+    res.json({ token });
   } catch (err) {
     //
   }
