@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import bcrypt from "bcrypt";
-// import jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { knex } from "../database/database";
 
 const router = express.Router();
@@ -13,6 +13,7 @@ router.post("/register", async (req: Request, res: Response) => {
     const { name, email, password } = req.body;
 
     // Check if user already exists
+    // Filter with 'where' for matching email, first row
     const userExists = await knex("users").where({ email }).first();
 
     // If user already exists, return 409 'conflict' with message
@@ -30,6 +31,19 @@ router.post("/register", async (req: Request, res: Response) => {
   } catch (err) {
     // 500 'internal server error'
     res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Existing user login (with JWT)
+router.post("/login", async (req: Request, res: Response) => {
+  try {
+    const { email, password } = req.body;
+
+    // Check if user does actually exist
+    const user = await knex("users").where({ email }).first();
+    res.status(201).json({ name: user.name, email: user.email });
+  } catch (err) {
+    //
   }
 });
 
