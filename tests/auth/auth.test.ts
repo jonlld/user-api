@@ -22,6 +22,7 @@ describe("Auth API", () => {
       // Using supertest request object (to resolve port clash)
       const res = await request.post("/auth/register").send(userData);
 
+      // Chai assertions
       expect(res).to.have.status(201);
       expect(res.body)
         .to.have.property("message")
