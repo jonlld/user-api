@@ -70,4 +70,4 @@ router.post("/login", async (req: Request, res: Response) => {
 });
 
 // Named export, to differentiate
-export { router as authRouter };
+export { router as authRoutes };

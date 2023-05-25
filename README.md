@@ -8,7 +8,7 @@
 
 ### Setting up the Database
 
-- Install Postgres and ensure it is running; create a local database via CLI:
+- Install Postgres and ensure it is running; create a local database using the command line:
 
   - `echo "CREATE DATABASE user_api;" | psql`
 
@@ -41,12 +41,12 @@ Use the following command to start the development server.
 
 `npm run startDev`
 
-This can be tested with tools such as Postman. The DB may be accessed via the `psql` CLI or visual tools such as PGAdmin.
+This can be tested with tools such as Postman. Your local DB may be accessed via the command line or through visual tools such as PGAdmin.
 
 ### Automated Tests (Development Only)
 
-Run the following command to run Mocha/Chai test suite:
+Run the following command to execute automated Mocha/Chai testing suite:
 
 `npm test`
 
-Note: Tests reset data in the users table; use for development testing only.
+_Note: Tests reset data in the users table; use for development purposes only._

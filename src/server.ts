@@ -4,7 +4,8 @@ import cors from "cors";
 import { urlencoded } from "express";
 
 // Import routers
-import { authRouter } from "./routes/auth";
+import { authRoutes } from "./routes/auth";
+import { userRoutes } from "./routes/users";
 
 dotenv.config();
 const app = express();
@@ -17,7 +18,8 @@ app.use(express.json());
 app.use(cors());
 
 // Use routers
-app.use("/auth", authRouter);
+app.use("/auth", authRoutes);
+app.use("/users", userRoutes);
 
 // Start server
 app.listen(PORT, () => {
