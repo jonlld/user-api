@@ -36,6 +36,12 @@ Use the following command to start the development server.
 
 This can be tested with tools such as Postman. The DB may be accessed via the `psql` CLI or visual tools such as PGAdmin.
 
-### Running Tests
+### Running Tests (Development Only)
+
+Manually clear users table before running tests via CLI:
+
+`DELETE FROM users;`
+
+Run the following command to run test suite:
 
 `npm test`
