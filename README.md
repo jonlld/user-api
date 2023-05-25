@@ -43,12 +43,10 @@ Use the following command to start the development server.
 
 This can be tested with tools such as Postman. The DB may be accessed via the `psql` CLI or visual tools such as PGAdmin.
 
-### Running Tests (Development Only)
+### Automated Tests (Development Only)
 
-Manually clear users table before running tests via CLI:
-
-`DELETE FROM users;`
-
-Run the following command to run test suite:
+Run the following command to run Mocha/Chai test suite:
 
 `npm test`
+
+Note: Tests reset data in the users table; use for development testing only.

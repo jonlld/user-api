@@ -19,7 +19,7 @@ describe("Auth API", () => {
         password: "pswd123",
       };
 
-      // Using supertest request object (to resolve port clash)
+      // Chai http request
       const res = await request.post("/auth/register").send(userData);
 
       // Chai assertions
