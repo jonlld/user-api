@@ -23,3 +23,6 @@ app.use("/auth", authRouter);
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
+
+// Export for use in tests/setup.ts
+export { app };

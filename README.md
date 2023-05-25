@@ -27,3 +27,15 @@
 
 - Note, migration files may be updated with commands such as:
   - `npx knex --knexfile ./src/config/knexfile.ts migrate:make update_users_table`
+
+### Running the Development Server
+
+Use the following command to start the development server.
+
+`npm run startDev`
+
+This can be tested with tools such as Postman. The DB may be accessed via the `psql` CLI or visual tools such as PGAdmin.
+
+### Running Tests
+
+`npm test`
