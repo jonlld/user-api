@@ -28,7 +28,7 @@ router.post("/register", async (req: Request, res: Response) => {
     await knex("users").insert(newUser);
 
     // Then return 201 'created' with message
-    return res.status(201).json({ message: "User registered succesfully" });
+    return res.status(201).json({ message: "User registered successfully" });
   } catch (err) {
     // 500 'internal server error'
     console.error(err);
