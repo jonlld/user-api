@@ -11,6 +11,7 @@
   "author": "JLD",
   "license": "ISC",
   "devDependencies": {
+    "@types/mocha": "^10.0.1",
     "chai": "^4.3.7",
     "chai-http": "^4.3.0",
     "mocha": "^10.2.0",
