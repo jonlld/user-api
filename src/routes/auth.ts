@@ -17,9 +17,7 @@ router.post("/register", async (req: Request, res: Response) => {
 
     // If user already exists, return 409 'conflict' with message
     if (userExists) {
-      return res
-        .status(409)
-        .json({ error: "User with this email already exists" });
+      return res.status(409).json({ error: "User already exists" });
     }
 
     // If user does not exist, hash password and add to db
@@ -31,7 +29,6 @@ router.post("/register", async (req: Request, res: Response) => {
     return res.status(201).json({ message: "User registered successfully" });
   } catch (err) {
     // 500 'internal server error'
-    console.error(err);
     res.status(500).json({ error: "Internal server error" });
   }
 });
