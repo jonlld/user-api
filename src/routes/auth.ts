@@ -5,7 +5,7 @@ import { knex } from "../database/database";
 
 const router = express.Router();
 
-// New user registration
+// User registration
 router.post("/register", async (req: Request, res: Response) => {
   try {
     // TODO Add validation
@@ -34,7 +34,8 @@ router.post("/register", async (req: Request, res: Response) => {
   }
 });
 
-// Existing user login (with JWT)
+// User login
+// Issue JWT token to client on successful login
 router.post("/login", async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
@@ -52,8 +53,8 @@ router.post("/login", async (req: Request, res: Response) => {
       return res.status(401).json({ error: "Invalid password" });
     }
 
-    // If ok, issue 1hr token
-    // Sign takes payload, key, options (using 'as string' type assertion)
+    // If match, issue 1hr token
+    // Note: sign takes payload, key (using 'as string' type assertion), options
     const token = jwt.sign(
       { id: user.id, email: user.email },
       process.env.ACCESS_TOKEN_SECRET as string,
@@ -63,7 +64,8 @@ router.post("/login", async (req: Request, res: Response) => {
     // Respond to client with token
     res.json({ token });
   } catch (err) {
-    //
+    // 500 'internal server error'
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
