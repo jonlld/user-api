@@ -61,8 +61,10 @@ router.get("/:id", authenticateToken, async (req: Request, res: Response) => {
       .where({ id })
       .first();
 
-    // test
-    console.log(user);
+    // In case of 'undefined' user send 404 'not found' error
+    if (!user) {
+      return res.status(404).json{ error: "User not found"};
+    }
 
     // Send default status and user data
     res.status(200).json(user);
