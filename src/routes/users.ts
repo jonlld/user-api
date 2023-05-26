@@ -60,6 +60,7 @@ router.put(
     // If match, update
     if (req.userId?.toString() === id) {
       try {
+        // TODO Add validation
         // Get payload, renaming properties
         const { name: newName, email: newEmail } = req.body;
 

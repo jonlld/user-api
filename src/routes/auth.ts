@@ -37,6 +37,8 @@ router.post("/register", async (req: Request, res: Response) => {
 // User login
 // Issue JWT token to client on successful login
 router.post("/login", async (req: Request, res: Response) => {
+  // TODO Add validation
+
   try {
     const { email, password } = req.body;
 
