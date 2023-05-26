@@ -35,8 +35,8 @@ describe("User API", () => {
   });
 
   after(async () => {
-    // Delete test user
-    await knex("users").where({ email: "test@test.com" }).del();
+    // Clean up db once tests complete
+    await knex("users").where({ email: "updated@test.com" }).del();
   });
 
   describe("GET /users", () => {

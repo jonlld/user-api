@@ -5,20 +5,21 @@ import bcrypt from "bcrypt";
 const expect = chai.expect;
 
 describe("Auth API", () => {
+  after(async () => {
+    // Clean up db once tests complete
+    await knex("users")
+      // whereIn accepts a property with array values to match
+      .whereIn("email", ["johnsmith@test.com", "jillsmith@test.com"])
+      .del();
+  });
+
   describe("POST /register", () => {
-    before(async () => {
-      // TODO delete test case only...
-
-      // Prior to testing, delete existing records from users table
-      await knex("users").del();
-    });
-
     it("should register a new user", async () => {
       // Users table should not include this user prior to testing
       const userData = {
         name: "John Smith",
         email: "johnsmith@test.com",
-        password: "pswd123",
+        password: "password123",
       };
 
       // Chai http request
@@ -35,7 +36,7 @@ describe("Auth API", () => {
       const existingUserData = {
         name: "Jill Smith",
         email: "jillsmith@test.com",
-        password: "password456",
+        password: await bcrypt.hash("password456", 10),
       };
 
       // Insert an existing user into the database
@@ -51,8 +52,8 @@ describe("Auth API", () => {
     it("should return 500 and error message if an error occurs during registration", async () => {
       // Omitting email
       const invalidData = {
-        name: "John Williams",
-        password: "maestro123",
+        name: "Jake Smith",
+        password: await bcrypt.hash("password789", 10),
       };
 
       const res = await request.post("/auth/register").send(invalidData);
@@ -64,27 +65,10 @@ describe("Auth API", () => {
   });
 
   describe("POST /login", () => {
-    before(async () => {
-      // Payload
-      const userData = {
-        name: "Test User",
-        email: "test@test.com",
-        password: await bcrypt.hash("password123", 10),
-      };
-
-      // Prior to testing, insert test user to db
-      await knex("users").insert(userData);
-    });
-
-    after(async () => {
-      // After testing, delete the user from db
-      await knex("users").where({ email: "test@test.com" }).del();
-    });
-
     it("should log in a user and return a token", async () => {
       // Payload
       const loginData = {
-        email: "test@test.com",
+        email: "johnsmith@test.com",
         password: "password123",
       };
 
@@ -99,7 +83,7 @@ describe("Auth API", () => {
     it("should return 401 and invalid message if password is incorrect", async () => {
       // Payload
       const loginData = {
-        email: "test@test.com",
+        email: "johnsmith@test.com",
         password: "incorrect",
       };
 
