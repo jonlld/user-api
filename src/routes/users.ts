@@ -63,7 +63,7 @@ router.get("/:id", authenticateToken, async (req: Request, res: Response) => {
 
     // In case of 'undefined' user send 404 'not found' error
     if (!user) {
-      return res.status(404).json{ error: "User not found"};
+      return res.status(404).json({ error: "User not found" });
     }
 
     // Send default status and user data
