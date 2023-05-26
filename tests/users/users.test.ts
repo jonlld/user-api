@@ -109,7 +109,7 @@ describe("User API", () => {
     });
 
     it("should return 401 when not authenticated", async () => {
-      // Same request, but no auth header
+      // PUT request, but no auth header
       const res = await request.put(`/users/${userId}`).send(updatedUser);
 
       expect(res).to.have.status(401);
@@ -129,6 +129,26 @@ describe("User API", () => {
       expect(res.body)
         .to.have.property("message")
         .that.equals("User deleted successfully");
+    });
+
+    it("should return 401 when not authenticated", async () => {
+      // DELETE request, , without setting auth header
+      const res = await request.delete(`/users/${userId}`);
+
+      // Chai assertions
+      expect(res).to.have.status(401);
+      expect(res.body).to.have.property("error").that.equals("Unauthorized");
+    });
+
+    it("should return 401 when authenticated with non-matching user id", async () => {
+      // DELETE request
+      const res = await request
+        .delete(`/users/${userId + 1}`)
+        .set("Authorization", `Bearer ${token}`);
+
+      // Chai assertions
+      expect(res).to.have.status(401);
+      expect(res.body).to.have.property("error").that.equals("Unauthorized");
     });
   });
 });
