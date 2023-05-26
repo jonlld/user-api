@@ -54,11 +54,21 @@ router.get("/", authenticateToken, async (req: Request, res: Response) => {
 router.get("/:id", authenticateToken, async (req: Request, res: Response) => {
   try {
     // Get id from parameters
-    console.log(req.params);
     const { id } = req.params;
-    res.json({ message: `id received: ${id}` });
+    // Query user from db
+    const user = await knex("users")
+      .select("id", "name", "email")
+      .where({ id })
+      .first();
+
+    // test
+    console.log(user);
+
+    // Send default status and user data
+    res.status(200).json(user);
   } catch (err) {
-    console.log(err);
+    // If error, send 500 and message
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
