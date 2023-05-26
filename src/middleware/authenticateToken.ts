@@ -6,14 +6,6 @@ interface AuthenticatedRequest extends Request {
   userId?: string;
 }
 
-// Returned by jwt.verify
-interface DecodedToken {
-  id: number;
-  email: string;
-  iat: number;
-  exp: number;
-}
-
 // Authentication middleware
 const authenticateToken = (
   req: AuthenticatedRequest,
@@ -34,9 +26,10 @@ const authenticateToken = (
     const decoded = jwt.verify(
       token,
       process.env.ACCESS_TOKEN_SECRET as string
-    ) as DecodedToken;
+    );
+
     // Add userId property to AuthenticatedRequest object - for id comparison in endpoints
-    req.userId = decoded.id.toString();
+    req.userId = (decoded as { id: string }).id;
 
     // Pass request to route handler
     next();
