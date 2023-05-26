@@ -50,23 +50,36 @@ router.get("/:id", authenticateToken, async (req: Request, res: Response) => {
 });
 
 // Update specific user by id
-router.put("/:id", authenticateToken, async (req: Request, res: Response) => {
-  try {
-    // Get id and payload, renaming properties
+router.put(
+  "/:id",
+  authenticateToken,
+  async (req: AuthenticatedRequest, res: Response) => {
+    // Get user id
     const { id } = req.params;
-    const { name: newName, email: newEmail } = req.body;
 
-    // Update db
-    await knex("users")
-      .where({ id })
-      .update({ name: newName, email: newEmail });
+    // If match, update
+    if (req.userId?.toString() === id) {
+      try {
+        // Get payload, renaming properties
+        const { name: newName, email: newEmail } = req.body;
 
-    // Send default status and message
-    res.status(200).json({ message: "User updated successfully" });
-  } catch (error) {
-    res.status(500).json({ error: "Internal server error" });
+        // Update db
+        await knex("users")
+          .where({ id })
+          .update({ name: newName, email: newEmail });
+
+        // Send default status and message
+        res.status(200).json({ message: "User updated successfully" });
+      } catch (error) {
+        res.status(500).json({ error: "Internal server error" });
+      }
+    }
+    // If no match, unauthorized
+    else {
+      res.status(401).json({ error: "Unauthorized" });
+    }
   }
-});
+);
 
 // Delete specific user by id
 router.delete(
