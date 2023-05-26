@@ -8,7 +8,8 @@
 
 ### Setting up the Database
 
-- Install Postgres and ensure it is running; create a local database using the command line:
+- Install Postgres and ensure it is running
+- Create a local database using the command line:
 
   - `echo "CREATE DATABASE user_api;" | psql`
 
@@ -17,6 +18,7 @@
   - `psql -d user_api`
 
 - Create a .env file in the root folder and add this to .gitignore
+
   - Set DB_NAME, DB_USER, and DB_PASSWORD to match local database settings
 
 ### Running Migrations
@@ -30,9 +32,10 @@
 
 ### Setting up JWT Secret
 
-- Choose a secret value and set ACCESS_TOKEN_SECRET in .env
+- Choose a secret value and set ACCESS_TOKEN_SECRET in the .env file
 
 - One way to generate a token string is to run the following in a node terminal:
+
   - `require('crypto').randomBytes(64).toString('hex')`
 
 ### Running the Development Server
@@ -41,11 +44,11 @@ Use the following command to start the development server.
 
 `npm run startDev`
 
-The API can be tested with tools such as Postman. Your local DB may be accessed via the command line or through visual tools such as PGAdmin.
+The API can be tested with tools such as Postman. Your local DB may be accessed via the command line and the `psql` interface, or through visual tools such as PGAdmin.
 
 ### Automated Tests (Development Only)
 
-The API includes a full set of automated tests, built with the Mocha framework and Chai assertion library. Please run the following command to execute and check results in terminal:
+The API includes a full set of automated tests, built with the Mocha framework and Chai assertion library. Please run the following command to execute the tests and see results in the terminal:
 
 `npm test`
 
