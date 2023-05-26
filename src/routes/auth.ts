@@ -28,7 +28,7 @@ router.post("/register", async (req: Request, res: Response) => {
 
     // Then return 201 'created' with message
     return res.status(201).json({ message: "User registered successfully" });
-  } catch (err) {
+  } catch (error) {
     // 500 'internal server error'
     res.status(500).json({ error: "Internal server error" });
   }
@@ -63,7 +63,7 @@ router.post("/login", async (req: Request, res: Response) => {
 
     // Respond to client with default 200 status and token
     res.status(200).json({ token });
-  } catch (err) {
+  } catch (error) {
     // 500 'internal server error'
     res.status(500).json({ error: "Internal server error" });
   }

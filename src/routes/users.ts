@@ -10,8 +10,8 @@ router.get("/", authenticateToken, async (req: Request, res: Response) => {
     // Only id, name, email fields
     const users = await knex("users").select("id", "name", "email");
     res.status(200).json(users);
-  } catch (err) {
-    res.status(500).json({ err: "Internal server error" });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -33,8 +33,26 @@ router.get("/:id", authenticateToken, async (req: Request, res: Response) => {
 
     // Send default status and user data
     res.status(200).json(user);
-  } catch (err) {
+  } catch (error) {
     // If error, send 500 and message
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.put(":/id", authenticateToken, async (req: Request, res: Response) => {
+  try {
+    // Get id and payload
+    const { id } = req.params;
+    const { name: newName, email: newEmail } = req.body;
+
+    // Update db
+    await knex("users")
+      .where({ id })
+      .update({ name: newName, email: newEmail });
+
+    // Send processed status and message
+    res.status(204).json({ message: "User updated successfully" });
+  } catch (error) {
     res.status(500).json({ error: "Internal server error" });
   }
 });
