@@ -39,9 +39,9 @@ router.get("/:id", authenticateToken, async (req: Request, res: Response) => {
   }
 });
 
-router.put(":/id", authenticateToken, async (req: Request, res: Response) => {
+router.put("/:id", authenticateToken, async (req: Request, res: Response) => {
   try {
-    // Get id and payload
+    // Get id and payload, renaming properties
     const { id } = req.params;
     const { name: newName, email: newEmail } = req.body;
 
@@ -50,8 +50,8 @@ router.put(":/id", authenticateToken, async (req: Request, res: Response) => {
       .where({ id })
       .update({ name: newName, email: newEmail });
 
-    // Send processed status and message
-    res.status(204).json({ message: "User updated successfully" });
+    // Send default status and message
+    res.status(200).json({ message: "User updated successfully" });
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
   }
