@@ -76,22 +76,19 @@ router.delete(
     // Get user id
     const { id } = req.params;
 
+    // If match, delete
     // Note: id is string while req.userId is number; converting latter to string to fix
     if (req.userId?.toString() === id) {
       try {
         // Query db; returns num of deleted rows (0 or 1)
-        const deletedCount = await knex("users").where({ id }).del();
-
-        if (deletedCount > 0) {
-          res.status(200).json({ message: "User deleted successfully" });
-        } else {
-          // Send not found status and message
-          res.status(404).json({ message: "User not found" });
-        }
+        await knex("users").where({ id }).del();
+        res.status(200).json({ message: "User deleted successfully" });
       } catch (error) {
         res.status(500).json({ error: "Internal server error" });
       }
-    } else {
+    }
+    // If no match, unauthorized
+    else {
       res.status(401).json({ error: "Unauthorized" });
     }
   }
