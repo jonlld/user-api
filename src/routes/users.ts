@@ -56,6 +56,7 @@ router.get("/:id", authenticateToken, async (req: Request, res: Response) => {
     // Get id from parameters
     console.log(req.params);
     const { id } = req.params;
+    res.json({ message: `id received: ${id}` });
   } catch (err) {
     console.log(err);
   }
