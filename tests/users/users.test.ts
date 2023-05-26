@@ -6,16 +6,27 @@ import jwt from "jsonwebtoken";
 const expect = chai.expect;
 
 describe("User API", () => {
+  // Define outer-scope variables
   let token: string;
+  let userIdObj: { id: number };
+  let userId: number;
+  let testUser: {
+    name: string;
+    email: string;
+    password: string;
+  };
 
   before(async () => {
-    // Create test user (and insert - in case db is empty)
-    const testUser = {
+    // Assign test user
+    testUser = {
       name: "Test User",
       email: "test@test.com",
       password: await bcrypt.hash("password123", 10),
     };
-    await knex("users").insert(testUser);
+    // Insert in db, manually return id, assign first element to userIdObj
+    [userIdObj] = await knex("users").returning("id").insert(testUser);
+    // Assign id
+    userId = userIdObj.id;
 
     // Assign token to use in tests
     token = jwt.sign(testUser, process.env.ACCESS_TOKEN_SECRET as string);
@@ -27,7 +38,7 @@ describe("User API", () => {
   });
 
   describe("GET /users", () => {
-    it("should return all users with status 200 when authenticated", async () => {
+    it("should return all users when authenticated", async () => {
       // Request, setting auth header
       const res = await request
         .get("/users")
@@ -45,6 +56,28 @@ describe("User API", () => {
     it("should return 401 when not authenticated", async () => {
       // Request, without setting auth header
       const res = await request.get("/users");
+      expect(res).to.have.status(401);
+      expect(res.body).to.have.property("error").that.equals("Unauthorized");
+    });
+  });
+
+  describe("GET /users/:id", () => {
+    it("should return specified user when authenticated", async () => {
+      // Request, with id and auth header
+      const res = await request
+        .get(`/users/${userId}`)
+        .set("Authorization", `Bearer ${token}`);
+
+      // Chai assertions with values
+      expect(res).to.have.status(200);
+      expect(res.body).to.have.property("id", userId);
+      expect(res.body).to.have.property("name", testUser.name);
+      expect(res.body).to.have.property("email", testUser.email);
+    });
+
+    it("should return 401 when not authenticated", async () => {
+      // Request, with id but no auth header
+      const res = await request.get(`/users/${userId}`);
       expect(res).to.have.status(401);
       expect(res.body).to.have.property("error").that.equals("Unauthorized");
     });
