@@ -76,6 +76,7 @@ router.delete(
     // Get user id
     const { id } = req.params;
 
+    // Note: id is string while req.userId is number; converting latter to string to fix
     if (req.userId?.toString() === id) {
       try {
         // Query db; returns num of deleted rows (0 or 1)
