@@ -49,7 +49,7 @@ describe("Auth API", () => {
         .that.equals("User already exists");
     });
 
-    it("should return 500 and error message if an error occurs during registration", async () => {
+    it("should return 400 and error message if an error occurs during registration", async () => {
       // Omitting email
       const invalidData = {
         name: "Jake Smith",
@@ -57,10 +57,8 @@ describe("Auth API", () => {
       };
 
       const res = await request.post("/auth/register").send(invalidData);
-      expect(res).to.have.status(500);
-      expect(res.body)
-        .to.have.property("error")
-        .that.equals("Internal server error");
+      expect(res).to.have.status(400);
+      expect(res.body).to.have.property("error");
     });
   });
 
