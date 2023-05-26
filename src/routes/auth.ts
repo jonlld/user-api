@@ -2,18 +2,35 @@ import express, { Request, Response, NextFunction } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { knex } from "../database/database";
+import Joi from "joi";
 
 const router = express.Router();
+
+// To sanitize and validate input for /register endpoint
+// abortEarly:false to pool *all* validation errors
+const registerSchema = Joi.object({
+  name: Joi.string().trim().min(2).max(256).required(),
+  email: Joi.string().trim().email().required(),
+  password: Joi.string().trim().min(8).max(255).required(),
+}).options({ abortEarly: false });
 
 // User registration
 router.post("/register", async (req: Request, res: Response) => {
   try {
-    // TODO Add validation
+    // Validate req.body
+    const { error } = registerSchema.validate(req.body);
 
+    // If validation fails, return 400 'bad request' with detail
+    if (error) {
+      console.log("VALIDATION FAILING");
+      return res.status(400).json({ error: error.details[0].message });
+    }
+
+    // Otherwise, continue
     const { name, email, password } = req.body;
 
     // Check if user already exists
-    // Filter with 'where' for matching email, first row
+    // Filter for first row with matching email
     const userExists = await knex("users").where({ email }).first();
 
     // If user already exists, return 409 'conflict' with message
