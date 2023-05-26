@@ -4,9 +4,6 @@ import { knex } from "../database/database";
 
 const router = express.Router();
 
-// Named export, to differentiate
-export { router as userRoutes };
-
 // Extend interface to add userID property
 interface AuthenticatedRequest extends Request {
   userId?: number;
@@ -52,3 +49,6 @@ router.get("/", authenticateToken, async (req: Request, res: Response) => {
     res.status(500).json({ err: "Internal server error" });
   }
 });
+
+// Named export, to differentiate
+export { router as userRoutes };

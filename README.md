@@ -50,3 +50,7 @@ Run the following command to execute automated Mocha/Chai testing suite:
 `npm test`
 
 _Note: Tests reset data in the users table; use for development purposes only._
+
+## Project Documentation
+
+### TO ADD
