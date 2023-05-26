@@ -41,15 +41,13 @@ Use the following command to start the development server.
 
 `npm run startDev`
 
-This can be tested with tools such as Postman. Your local DB may be accessed via the command line or through visual tools such as PGAdmin.
+The API can be tested with tools such as Postman. Your local DB may be accessed via the command line or through visual tools such as PGAdmin.
 
 ### Automated Tests (Development Only)
 
-Run the following command to execute automated Mocha/Chai testing suite:
+The API includes a full set of automated tests, built with the Mocha framework and Chai assertion library. Please run the following command to execute and check results in terminal:
 
 `npm test`
-
-_Note: Tests reset data in the users table; use for development purposes only._
 
 ## Project Documentation
 
