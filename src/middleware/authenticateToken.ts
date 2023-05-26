@@ -3,7 +3,15 @@ import jwt from "jsonwebtoken";
 
 // Extend interface to add userID property
 interface AuthenticatedRequest extends Request {
-  userId?: number;
+  userId?: string;
+}
+
+// Returned by jwt.verify
+interface DecodedToken {
+  id: number;
+  email: string;
+  iat: number;
+  exp: number;
 }
 
 // Authentication middleware
@@ -22,13 +30,14 @@ const authenticateToken = (
 
   // If token, verify
   try {
-    // Returns payload and token if veried, and throws error if not
+    // Returns payload and token if veried; throws error if not
     const decoded = jwt.verify(
       token,
       process.env.ACCESS_TOKEN_SECRET as string
-    );
-    // Extract user id from token and add 'userId' property to req object for later use
-    req.userId = (decoded as { id: number }).id;
+    ) as DecodedToken;
+    // Add userId property to AuthenticatedRequest object - for id comparison in endpoints
+    req.userId = decoded.id.toString();
+
     // Pass request to route handler
     next();
   } catch (err) {
@@ -36,4 +45,4 @@ const authenticateToken = (
   }
 };
 
-export { authenticateToken };
+export { AuthenticatedRequest, authenticateToken };
