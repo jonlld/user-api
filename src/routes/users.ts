@@ -50,5 +50,16 @@ router.get("/", authenticateToken, async (req: Request, res: Response) => {
   }
 });
 
+// Get specific user by id
+router.get("/:id", authenticateToken, async (req: Request, res: Response) => {
+  try {
+    // Get id from parameters
+    console.log(req.params);
+    const { id } = req.params;
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 // Named export, to differentiate
 export { router as userRoutes };
