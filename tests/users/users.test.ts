@@ -11,6 +11,7 @@ describe("User API", () => {
   let userIdObj: { id: number };
   let userId: number;
   let testUser: {
+    id?: number;
     name: string;
     email: string;
     password: string;
@@ -27,6 +28,7 @@ describe("User API", () => {
     [userIdObj] = await knex("users").returning("id").insert(testUser);
     // Assign id
     userId = userIdObj.id;
+    testUser.id = userIdObj.id;
 
     // Assign token to use in tests
     token = jwt.sign(testUser, process.env.ACCESS_TOKEN_SECRET as string);
@@ -112,6 +114,21 @@ describe("User API", () => {
 
       expect(res).to.have.status(401);
       expect(res.body).to.have.property("error").that.equals("Unauthorized");
+    });
+  });
+
+  describe("DELETE /users/:id", () => {
+    it("should delete a user and return 200 when authenticated with id match", async () => {
+      // DELETE request
+      const res = await request
+        .delete(`/users/${userId}`)
+        .set("Authorization", `Bearer ${token}`);
+
+      // Chai assertions
+      expect(res).to.have.status(200);
+      expect(res.body)
+        .to.have.property("message")
+        .that.equals("User deleted successfully");
     });
   });
 });

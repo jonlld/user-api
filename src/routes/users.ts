@@ -76,7 +76,7 @@ router.delete(
     // Get user id
     const { id } = req.params;
 
-    if (req.userId === id) {
+    if (req.userId?.toString() === id) {
       try {
         // Query db; returns num of deleted rows (0 or 1)
         const deletedCount = await knex("users").where({ id }).del();
