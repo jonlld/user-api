@@ -11,7 +11,7 @@ const router = express.Router();
 Notes: 
 - All routes use authenticateToken middleware to authorise prior to actioning
 - Note, the below assumes user is *not* admin
-- To this effect, using middleware to access current userId and check match for id-related requests 
+- To this effect, using middleware to access current userId and check match for destructive requests 
 */
 
 // Get all users
