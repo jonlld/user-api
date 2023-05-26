@@ -39,7 +39,7 @@ describe("User API", () => {
 
   describe("GET /users", () => {
     it("should return all users when authenticated", async () => {
-      // Request, setting auth header
+      // GET request, setting auth header
       const res = await request
         .get("/users")
         .set("Authorization", `Bearer ${token}`);
@@ -54,8 +54,9 @@ describe("User API", () => {
     });
 
     it("should return 401 when not authenticated", async () => {
-      // Request, without setting auth header
+      // GET request, without setting auth header
       const res = await request.get("/users");
+
       expect(res).to.have.status(401);
       expect(res.body).to.have.property("error").that.equals("Unauthorized");
     });
@@ -63,7 +64,7 @@ describe("User API", () => {
 
   describe("GET /users/:id", () => {
     it("should return specified user when authenticated", async () => {
-      // Request, with id and auth header
+      // GET request, with id and auth header
       const res = await request
         .get(`/users/${userId}`)
         .set("Authorization", `Bearer ${token}`);
@@ -78,6 +79,37 @@ describe("User API", () => {
     it("should return 401 when not authenticated", async () => {
       // Request, with id but no auth header
       const res = await request.get(`/users/${userId}`);
+
+      expect(res).to.have.status(401);
+      expect(res.body).to.have.property("error").that.equals("Unauthorized");
+    });
+  });
+
+  describe("PUT /users/:id", () => {
+    // Updated payload
+    const updatedUser = {
+      name: "Updated User",
+      email: "updated@test.com",
+    };
+
+    it("should update specified user and return 200 when authenticated", async () => {
+      // PUT request, with id, auth header, sending updated payload
+      const res = await request
+        .put(`/users/${userId}`)
+        .set("Authorization", `Bearer ${token}`)
+        .send(updatedUser);
+
+      // Chai assertions
+      expect(res).to.have.status(200);
+      expect(res.body)
+        .to.have.property("message")
+        .that.equals("User updated successfully");
+    });
+
+    it("should return 401 when not authenticated", async () => {
+      // Same request, but no auth header
+      const res = await request.put(`/users/${userId}`).send(updatedUser);
+
       expect(res).to.have.status(401);
       expect(res.body).to.have.property("error").that.equals("Unauthorized");
     });
