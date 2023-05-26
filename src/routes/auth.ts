@@ -61,7 +61,7 @@ router.post("/login", async (req: Request, res: Response) => {
       { expiresIn: "1h" }
     );
 
-    // Respond to client with default 200 status (explicitly set) and token
+    // Respond to client with default 200 status and token
     res.status(200).json({ token });
   } catch (err) {
     // 500 'internal server error'
