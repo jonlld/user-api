@@ -108,6 +108,17 @@ describe("User API", () => {
         .that.equals("User updated successfully");
     });
 
+    it("should return 401 when authenticated with non-matching user id", async () => {
+      const res = await request
+        .put(`/users/${userId + 1}`)
+        .set("Authorization", `Bearer ${token}`)
+        .send(updatedUser);
+
+      // Chai assertions
+      expect(res).to.have.status(401);
+      expect(res.body).to.have.property("error").that.equals("Unauthorized");
+    });
+
     it("should return 401 when not authenticated", async () => {
       // PUT request, but no auth header
       const res = await request.put(`/users/${userId}`).send(updatedUser);
@@ -131,20 +142,20 @@ describe("User API", () => {
         .that.equals("User deleted successfully");
     });
 
-    it("should return 401 when not authenticated", async () => {
-      // DELETE request, , without setting auth header
-      const res = await request.delete(`/users/${userId}`);
+    it("should return 401 when authenticated with non-matching user id", async () => {
+      // DELETE request
+      const res = await request
+        .delete(`/users/${userId + 1}`)
+        .set("Authorization", `Bearer ${token}`);
 
       // Chai assertions
       expect(res).to.have.status(401);
       expect(res.body).to.have.property("error").that.equals("Unauthorized");
     });
 
-    it("should return 401 when authenticated with non-matching user id", async () => {
-      // DELETE request
-      const res = await request
-        .delete(`/users/${userId + 1}`)
-        .set("Authorization", `Bearer ${token}`);
+    it("should return 401 when not authenticated", async () => {
+      // DELETE request, , without setting auth header
+      const res = await request.delete(`/users/${userId}`);
 
       // Chai assertions
       expect(res).to.have.status(401);
