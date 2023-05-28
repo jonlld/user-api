@@ -28,15 +28,13 @@ Detailed living documentation is included through the use of Swagger, providing 
 
   - `psql -d user_api`
 
-- Create a .env file in the root folder with the following variables and add this to .gitignore
+- Create a .env file in the root folder with the following variables and add to your `.gitignore`. Declare the following variables, and set to match your local database settings:
 
 ```
 DB_USER=<your_username>
 DB_PASSWORD=<your_password>
 DB_NAME=<your_db_name>
 ```
-
-- Set DB_NAME, DB_USER, and DB_PASSWORD to match local database settings
 
 ### Run Migrations
 
@@ -49,7 +47,7 @@ DB_NAME=<your_db_name>
 
 ### Set up a JWT Secret
 
-- Choose a secret value and set ACCESS_TOKEN_SECRET in your .env file
+- Choose a secret value and add it to your .env file as below:
 
 ```
 ACCESS_TOKEN_SECRET=<your_secret>
@@ -124,3 +122,11 @@ Please note that all `/users` endpoints require the appropriate authorization wi
 - Then click on the 'Authorize' button at the top-right of the UI.
 - Type 'BEARER ' and paste your token to authorize usage of the `/users` API.
 - To log out, click on the 'Authorize' button once more to see the 'logout' option.
+
+## Summary
+
+This API provides a foundation for managing user data and authentication in your applications. Feel free to customize and extend it according to your project requirements.
+
+If you have any questions, issues, or suggestions, please don't hesitate to reach out.
+
+Happy coding!
