@@ -12,7 +12,7 @@ paths:
         # List for multiple
         - Authentication
       summary: User Registration
-      description: Registers a new user with provided credentials.
+      description: Register a new user with provided credentials.
       parameters:
         # list of parameter objects
         - name: body
@@ -25,6 +25,7 @@ paths:
               name:
                 type: string
                 description: User's name
+                #to add examples
               email:
                 type: string
                 format: email
@@ -45,6 +46,71 @@ paths:
                 description: Error message
         409:
           description: User already exists
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: Error message
+        500:
+          description: Internal server error
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: Error message
+  /auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: User Login
+      description: Login a registered user and obtain JWT access token
+      parameters:
+        - name: body
+          in: body
+          description: User login details
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                description: User's email address
+                example: user@example.com
+              password:
+                type: string
+                description: User's password
+                example: password123
+      responses:
+        200:
+          description: Successfully logged in
+          schema:
+            type: object
+            properties:
+              token:
+                type: string
+                description: JWT token for logged-in user
+                example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNjM0NzU0MDAwLCJleHAiOjE2MzQ3NTQwNDF9.QHd3TcbxhXU5TgFwQ0TVtW5W8H4tT7dUyvRcHVlguNA
+        400:
+          description: Bad request
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: Error message
+                #to add more examples
+        401:
+          description: Unauthorized
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: Error message
+        404:
+          description: User not found
           schema:
             type: object
             properties:
