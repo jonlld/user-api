@@ -134,3 +134,54 @@ paths:
                 description: Error message
                 example: Internal server error
   /users/:
+    get:
+      tags:
+        - Users
+      summary: Get all users
+      description: Retrieve id, name, and email detail for all users. Requires authorization with login token.
+      security:
+        - BearerAuth: []
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  description: User ID
+                  example: 1
+                name:
+                  type: string
+                  description: User's name
+                  example: Test User
+                email:
+                  type: string
+                  description: User's email address
+                  example: test@test.com
+        401:
+          description: Unauthorized
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: Error message
+                example: Unauthorized
+        500:
+          description: Internal server error
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: Error message
+                example: Internal server error
+securityDefinitions:
+  BearerAuth:
+    type: apiKey
+    name: Authorization
+    in: header
+    description: Bearer authentication token (include 'BEARER ' prefix and a space before the token)
