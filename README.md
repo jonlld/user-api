@@ -2,7 +2,7 @@
 
 ## Overview
 
-This RESTful API is built with Node.JS and Express, and utilises TypeScript together with the PostgreSQL database. Knex is used to handle migrations and querying the database.
+This RESTful API is built with Node.JS and Express, and utilises TypeScript together with the PostgreSQL database. Knex is used to handle migrations and query the database.
 
 The API supports CRUD (Create, Read, Update, and Delete) operations for a single `User` resource.
 
@@ -43,6 +43,7 @@ DB_NAME=<your_db_name>
   - `npx knex migrate:latest --knexfile ./src/config/knexfile.ts`
 
 - Note, migration files may be updated with commands such as:
+
   - `npx knex --knexfile ./src/config/knexfile.ts migrate:make update_users_table`
 
 ### Set up a JWT Secret
@@ -89,7 +90,7 @@ _Note: For more detail please reference the living documentation (detailed below
 
 `GET /users`
 
-- Description: Retrieve id, name, and email detail for all users. Requires authorization with login token.
+- Description: Retrieve id, name, and email details for all users. Requires authorization with login token.
 
 `GET /users/{id}`
 
@@ -105,13 +106,13 @@ _Note: For more detail please reference the living documentation (detailed below
 
 ### Swagger - Living Documentation
 
-The API utilises the Swagger UI to provide living documentation. The documentation describes all endpoints within the API and provides details with how to interact with them. API users can interact with all features of the API through this web-browser based interface.
+The API utilises the Swagger UI to provide living documentation. The documentation describes all endpoints within the API and provides details with how to interact with them, along with what responses to expect. API users can interact with all features of the API through this browser-based interface.
 
 Please follow the below steps to get started:
 
-- Ensure your local database setup is complete as detailed above
+- Ensure your local database setup is complete as outlined above
 - Start the development server with `npm run startDev`
-- Open a browser and navigate to: `http://localhost:<port>/docs/`
+- Open a browser window and navigate to: `http://localhost:<port>/docs/`
 
 You will now see a list of available endpoints.
 
@@ -119,8 +120,8 @@ Please note that all `/users` endpoints require the appropriate authorization wi
 
 - Use the `register` endpoint in Authorization to register a user (if have not already)
 - Use these details to then access the `login` endpoint, and retrieve a token
-- Then click on the 'Authorize' button at the top-right of the UI.
-- Type 'BEARER ' and paste your token to authorize usage of the `/users` API.
+- Click on the 'Authorize' button at the top-right of the UI.
+- Type 'BEARER ' and paste your token then click on 'login' to authorize usage of the `/users` API.
 - To log out, click on the 'Authorize' button once more to see the 'logout' option.
 
 ## Summary
