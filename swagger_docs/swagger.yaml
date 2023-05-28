@@ -11,7 +11,26 @@ responses:
           type: string
           description: Error message
           example: Invalid request body
+  InternalServerError:
+    description: Internal server error
+    schema:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: Internal server error
+  Unauthorized:
+    description: Unauthorized
+    schema:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: Invalid password
 
+# Specification
 swagger: "2.0"
 info:
   title: User API - Live Documentation
@@ -62,14 +81,7 @@ paths:
                 description: Error message
                 example: User already exists
         500:
-          description: Internal server error
-          schema:
-            type: object
-            properties:
-              error:
-                type: string
-                description: Error message
-                example: Internal server error
+          $ref: "#/responses/InternalServerError"
   /auth/login:
     post:
       tags:
@@ -105,14 +117,7 @@ paths:
         400:
           $ref: "#/responses/BadRequest"
         401:
-          description: Unauthorized
-          schema:
-            type: object
-            properties:
-              error:
-                type: string
-                description: Error message
-                example: Invalid password
+          $ref: "#/responses/Unauthorized"
         404:
           description: User not found
           schema:
@@ -123,14 +128,7 @@ paths:
                 description: Error message
                 example: User not found
         500:
-          description: Internal server error
-          schema:
-            type: object
-            properties:
-              error:
-                type: string
-                description: Error message
-                example: Internal server error
+          $ref: "#/responses/InternalServerError"
   /users/:
     get:
       tags:
@@ -160,23 +158,9 @@ paths:
                   description: User's email address
                   example: test@test.com
         401:
-          description: Unauthorized
-          schema:
-            type: object
-            properties:
-              error:
-                type: string
-                description: Error message
-                example: Unauthorized
+          $ref: "#/responses/Unauthorized"
         500:
-          description: Internal server error
-          schema:
-            type: object
-            properties:
-              error:
-                type: string
-                description: Error message
-                example: Internal server error
+          $ref: "#/responses/InternalServerError"
   # { } brackets required
   /users/{id}:
     get:
@@ -213,14 +197,7 @@ paths:
                   description: User's email address
                   example: test@test.com
         401:
-          description: Unauthorized
-          schema:
-            type: object
-            properties:
-              error:
-                type: string
-                description: Error message
-                example: Unauthorized
+          $ref: "#/responses/Unauthorized"
         404:
           description: User not found
           schema:
@@ -231,14 +208,7 @@ paths:
                 description: Error message
                 example: User not found
         500:
-          description: Internal server error
-          schema:
-            type: object
-            properties:
-              error:
-                type: string
-                description: Error message
-                example: Internal server error
+          $ref: "#/responses/InternalServerError"
     put:
       tags:
         - Users
@@ -271,23 +241,9 @@ paths:
         200:
           description: User updated successfully
         401:
-          description: Unauthorized
-          schema:
-            type: object
-            properties:
-              error:
-                type: string
-                description: Error message
-                example: Unauthorized
+          $ref: "#/responses/Unauthorized"
         500:
-          description: Internal server error
-          schema:
-            type: object
-            properties:
-              error:
-                type: string
-                description: Error message
-                example: Internal server error
+          $ref: "#/responses/InternalServerError"
     delete:
       tags:
         - Users
@@ -305,23 +261,9 @@ paths:
         200:
           description: User deleted successfully
         401:
-          description: Unauthorized
-          schema:
-            type: object
-            properties:
-              error:
-                type: string
-                description: Error message
-                example: Unauthorized
+          $ref: "#/responses/Unauthorized"
         500:
-          description: Internal server error
-          schema:
-            type: object
-            properties:
-              error:
-                type: string
-                description: Error message
-                example: Internal server error
+          $ref: "#/responses/InternalServerError"
 
 # Authorization
 securityDefinitions:
