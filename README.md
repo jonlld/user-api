@@ -68,6 +68,8 @@ Use the following command to start the development server.
 
 The API includes a full set of automated tests, built with the Mocha framework and Chai assertion library. Please run the following command to execute the tests and check results in your terminal:
 
+_Note: Ensure the development server is not running before starting the test server._
+
 `npm test`
 
 ## Documentation
