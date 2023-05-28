@@ -179,6 +179,69 @@ paths:
                 type: string
                 description: Error message
                 example: Internal server error
+  # Note, { } brackets are required
+  /users/{id}:
+    get:
+      tags:
+        - Users
+      summary: Get user by ID
+      description: Retrieve a specific user by their ID
+      parameters:
+        - name: id
+          in: path
+          description: User ID
+          required: true
+          type: integer
+      security:
+        - BearerAuth: []
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  description: User ID
+                  example: 1
+                name:
+                  type: string
+                  description: User's name
+                  example: Test User
+                email:
+                  type: string
+                  description: User's email address
+                  example: test@test.com
+        401:
+          description: Unauthorized
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: Error message
+                example: Unauthorized
+        404:
+          description: User not found
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: Error message
+                example: User not found
+        500:
+          description: Internal server error
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: Error message
+                example: Internal server error
+
 securityDefinitions:
   BearerAuth:
     type: apiKey
