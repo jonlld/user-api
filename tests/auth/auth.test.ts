@@ -22,10 +22,10 @@ describe("Auth API", () => {
         password: "password123",
       };
 
-      // Chai http request
+      // Http request
       const res = await request.post("/auth/register").send(userData);
 
-      // Chai assertions
+      // Assertions
       expect(res).to.have.status(201);
       expect(res.body)
         .to.have.property("message")

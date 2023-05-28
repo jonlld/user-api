@@ -4,7 +4,7 @@ import knexConfig from "../config/knexfile";
 
 dotenv.config();
 
-// Dynamically set knexConfig to environment
+// Dynamically set environment
 const environment = process.env.NODE_ENV || "development";
 const configOptions = knexConfig[environment];
 

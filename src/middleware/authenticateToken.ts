@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
-// Extend interface to add userID property
+// Extend Request interface, adding userID property
 interface AuthenticatedRequest extends Request {
   userId?: string;
 }
@@ -12,7 +12,7 @@ const authenticateToken = (
   res: Response,
   next: NextFunction
 ) => {
-  // Extract from 'authorization' header; split as format is: BEARER <TOKEN>
+  // Extract from authorization header and split at space: BEARER <TOKEN>
   const token = req.headers.authorization?.split(" ")[1];
 
   // If no token, return 401
@@ -22,13 +22,13 @@ const authenticateToken = (
 
   // If token, verify
   try {
-    // Returns payload and token if veried; throws error if not
+    // Return payload and token if veried; throw error if not
     const decoded = jwt.verify(
       token,
       process.env.ACCESS_TOKEN_SECRET as string
     );
 
-    // Add userId property to AuthenticatedRequest object - for id comparison in endpoints
+    // Add userId property to AuthenticatedRequest object - for id check in update/delete endpoints
     req.userId = (decoded as { id: string }).id;
 
     // Pass request to route handler

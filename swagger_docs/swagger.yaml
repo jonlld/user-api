@@ -1,6 +1,6 @@
 # Define API specification here
 
-# Reusable sections
+# REUSABLE SECTIONS
 responses:
   BadRequest:
     description: Bad request
@@ -30,7 +30,7 @@ responses:
           description: Error message
           example: Invalid password
 
-# Specification
+# API SPECIFICATION
 swagger: "2.0"
 info:
   title: User API - Live Documentation
@@ -265,7 +265,7 @@ paths:
         500:
           $ref: "#/responses/InternalServerError"
 
-# Authorization
+# AUTHORIZATION
 securityDefinitions:
   BearerAuth:
     type: apiKey

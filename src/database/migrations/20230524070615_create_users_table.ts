@@ -1,7 +1,6 @@
 import { Knex } from "knex";
 
-// Arguments passed to timestamps method:
-// timestamps([useTimestamps], [defaultToNow]);
+// Note: arguments passed to timestamps method: timestamps([useTimestamps], [defaultToNow]);
 
 export async function up(knex: Knex): Promise<void> {
   return knex.schema.createTable("users", (table) => {

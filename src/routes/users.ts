@@ -15,7 +15,7 @@ Notes:
 - To this effect, using middleware to access current userId and check match for destructive requests 
 */
 
-// To sanitize and validate input for updating user data
+// Sanitize and validate input for updating user data
 const updateSchema = Joi.object({
   name: Joi.string().trim().min(2).max(256).required(),
   email: Joi.string().trim().email().required(),
@@ -24,7 +24,7 @@ const updateSchema = Joi.object({
 // Get all users
 router.get("/", authenticateToken, async (req: Request, res: Response) => {
   try {
-    // Only id, name, email fields
+    // id, name, email only
     const users = await knex("users").select("id", "name", "email");
     res.status(200).json(users);
   } catch (error) {
@@ -37,13 +37,13 @@ router.get("/:id", authenticateToken, async (req: Request, res: Response) => {
   try {
     // Get id from parameters
     const { id } = req.params;
-    // Query user from db
+    // Query db
     const user = await knex("users")
       .select("id", "name", "email")
       .where({ id })
       .first();
 
-    // In case of 'undefined' user, send 404 'not found' error
+    // In case of 'undefined', send 404 'not found'
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
@@ -70,7 +70,7 @@ router.put(
         // Validate req.body
         const { error } = updateSchema.validate(req.body);
 
-        // If validation fails, return 400 'bad request' with detail
+        // If fails, return 400 'bad request' and detail
         if (error) {
           return res.status(400).json({ error: error.details[0].message });
         }
@@ -109,7 +109,6 @@ router.delete(
     // Note: id is string while req.userId is number; converting latter to string to fix
     if (req.userId?.toString() === id) {
       try {
-        // Query db; returns num of deleted rows (0 or 1)
         await knex("users").where({ id }).del();
         res.status(200).json({ message: "User deleted successfully" });
       } catch (error) {
@@ -123,5 +122,4 @@ router.delete(
   }
 );
 
-// Named export, to differentiate
 export { router as userRoutes };

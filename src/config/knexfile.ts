@@ -6,7 +6,6 @@ import path from "path";
 // Therefore, use absolute path to .env file from current directory
 dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 
-// Note type, from @types/knex
 const knexConfig: { [key: string]: Knex.Config } = {
   development: {
     client: "pg",

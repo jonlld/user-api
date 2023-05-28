@@ -71,7 +71,7 @@ describe("User API", () => {
         .get(`/users/${userId}`)
         .set("Authorization", `Bearer ${token}`);
 
-      // Chai assertions with values
+      // Assertions, with values
       expect(res).to.have.status(200);
       expect(res.body).to.have.property("id", userId);
       expect(res.body).to.have.property("name", testUser.name);
@@ -101,7 +101,7 @@ describe("User API", () => {
         .set("Authorization", `Bearer ${token}`)
         .send(updatedUser);
 
-      // Chai assertions
+      // Assertions
       expect(res).to.have.status(200);
       expect(res.body)
         .to.have.property("message")
@@ -114,7 +114,7 @@ describe("User API", () => {
         .set("Authorization", `Bearer ${token}`)
         .send(updatedUser);
 
-      // Chai assertions
+      // Assertions
       expect(res).to.have.status(401);
       expect(res.body).to.have.property("error").that.equals("Unauthorized");
     });
@@ -135,7 +135,7 @@ describe("User API", () => {
         .delete(`/users/${userId}`)
         .set("Authorization", `Bearer ${token}`);
 
-      // Chai assertions
+      // Assertions
       expect(res).to.have.status(200);
       expect(res.body)
         .to.have.property("message")
@@ -148,7 +148,7 @@ describe("User API", () => {
         .delete(`/users/${userId + 1}`)
         .set("Authorization", `Bearer ${token}`);
 
-      // Chai assertions
+      // Assertions
       expect(res).to.have.status(401);
       expect(res.body).to.have.property("error").that.equals("Unauthorized");
     });
@@ -157,7 +157,7 @@ describe("User API", () => {
       // DELETE request, , without setting auth header
       const res = await request.delete(`/users/${userId}`);
 
-      // Chai assertions
+      // Assertions
       expect(res).to.have.status(401);
       expect(res.body).to.have.property("error").that.equals("Unauthorized");
     });
