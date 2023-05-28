@@ -167,7 +167,7 @@ paths:
       tags:
         - Users
       summary: Get user by ID
-      description: Retrieve a specific user by their ID
+      description: Retrieve a specific user by their ID. Requires authorization with login token.
       parameters:
         - name: id
           in: path
@@ -213,7 +213,7 @@ paths:
       tags:
         - Users
       summary: Update logged-in user by ID
-      description: Update logged-in user's name or email by ID
+      description: Update logged-in user's name or email by ID. Requires authorization with login token.
       parameters:
         - name: id
           in: path
@@ -248,7 +248,7 @@ paths:
       tags:
         - Users
       summary: Delete logged-in user by ID
-      description: Delete logged-in user from database by ID
+      description: Delete logged-in user from database by ID. Requires authorization with login token.
       parameters:
         - name: id
           in: path
