@@ -3,11 +3,10 @@ import swaggerUi from "swagger-ui-express";
 import express from "express";
 import path from "path";
 
-// Get absolute path to yaml file from current directory
+// Get absolute path to yaml file from current directory, as CWD depends on how application is run
 const swaggerPath = path.resolve(__dirname, "swagger.yaml");
+// Parse to JS object
 const swaggerDocument = YAML.load(swaggerPath);
-
-console.log(__dirname);
 
 const router = express.Router();
 
