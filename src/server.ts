@@ -6,6 +6,7 @@ import { urlencoded } from "express";
 // Import routers
 import { authRoutes } from "./routes/auth";
 import { userRoutes } from "./routes/users";
+import { swaggerRouter } from "../swagger_docs/swagger";
 
 dotenv.config();
 const app = express();
@@ -20,6 +21,7 @@ app.use(cors());
 // Use routers
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
+app.use("/docs", swaggerRouter);
 
 // Start server
 app.listen(PORT, () => {
