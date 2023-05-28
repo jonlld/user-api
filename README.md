@@ -54,4 +54,16 @@ The API includes a full set of automated tests, built with the Mocha framework a
 
 ## Project Documentation
 
-### TO ADD
+### Swagger - Living Documentation
+
+This project utilises the Swagger UI to provide living documentation for the API. The documentation describes all endpoints and can be directly interacted with via the UI. Please follow the steps below to start:
+
+- Ensure your Postgres setup is complete, and use the following command to start the development server.
+
+  - `npm run startDev`
+
+- Open your browser and navigate to:
+
+  - `http://localhost:<port>/docs`
+
+You may now interact with the API using the interface provided and the 'Try It Out' buttons. This will interact live with the DB and provide details on responses from the server.
