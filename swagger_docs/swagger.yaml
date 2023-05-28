@@ -1,5 +1,17 @@
 # Define API specification here
 
+# Reusable sections
+responses:
+  BadRequest:
+    description: Bad request
+    schema:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: Invalid request body
+
 swagger: "2.0"
 info:
   title: User API - Live Documentation
@@ -39,14 +51,7 @@ paths:
         201:
           description: User registered successfully
         400:
-          description: Bad request
-          schema:
-            type: object
-            properties:
-              error:
-                type: string
-                description: Error message
-                example: Invalid request body
+          $ref: "#/responses/BadRequest"
         409:
           description: User already exists
           schema:
@@ -98,14 +103,7 @@ paths:
                 description: JWT token for logged-in user
                 example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNjM0NzU0MDAwLCJleHAiOjE2MzQ3NTQwNDF9.QHd3TcbxhXU5TgFwQ0TVtW5W8H4tT7dUyvRcHVlguNA
         400:
-          description: Bad request
-          schema:
-            type: object
-            properties:
-              error:
-                type: string
-                description: Error message
-                example: Invalid request body
+          $ref: "#/responses/BadRequest"
         401:
           description: Unauthorized
           schema:
