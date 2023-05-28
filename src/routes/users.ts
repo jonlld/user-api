@@ -4,6 +4,7 @@ import {
   AuthenticatedRequest,
   authenticateToken,
 } from "../middleware/authenticateToken";
+import Joi from "joi";
 
 const router = express.Router();
 
@@ -13,6 +14,12 @@ Notes:
 - Note, the below assumes user is *not* admin
 - To this effect, using middleware to access current userId and check match for destructive requests 
 */
+
+// To sanitize and validate input for updating user data
+const updateSchema = Joi.object({
+  name: Joi.string().trim().min(2).max(256).required(),
+  email: Joi.string().trim().email().required(),
+}).options({ abortEarly: false });
 
 // Get all users
 router.get("/", authenticateToken, async (req: Request, res: Response) => {
@@ -60,7 +67,15 @@ router.put(
     // If match, update
     if (req.userId?.toString() === id) {
       try {
-        // TODO Add validation
+        // Validate req.body
+        const { error } = updateSchema.validate(req.body);
+
+        // If validation fails, return 400 'bad request' with detail
+        if (error) {
+          return res.status(400).json({ error: error.details[0].message });
+        }
+
+        // Otherwise, continue
         // Get payload, renaming properties
         const { name: newName, email: newEmail } = req.body;
 
