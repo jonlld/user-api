@@ -179,7 +179,7 @@ paths:
                 type: string
                 description: Error message
                 example: Internal server error
-  # Note, { } brackets are required
+  # { } brackets required
   /users/{id}:
     get:
       tags:
@@ -241,10 +241,59 @@ paths:
                 type: string
                 description: Error message
                 example: Internal server error
-
+    put:
+      tags:
+        - Users
+      summary: Update user by ID
+      description: Update logged-in user's details by ID
+      parameters:
+        - name: id
+          in: path
+          description: User ID
+          required: true
+          type: integer
+        - name: body
+          in: body
+          description: Details to update
+          required: true
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Updated name for the user
+                example: Updated User
+              email:
+                type: string
+                description: Updated email for the user
+                example: updated@test.com
+      security:
+        - BearerAuth: []
+      responses:
+        200:
+          description: User updated successfully
+        401:
+          description: Unauthorized
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: Error message
+                example: Unauthorized
+        500:
+          description: Internal server error
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: Error message
+                example: Internal server error
+# Authorization
 securityDefinitions:
   BearerAuth:
     type: apiKey
     name: Authorization
     in: header
-    description: Bearer authentication token (include 'BEARER ' prefix and a space before the token)
+    description: INCLUDE 'BEARER ' AS PREFIX WITH TRAILING SPACE
