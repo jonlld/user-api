@@ -67,3 +67,10 @@ This project utilises the Swagger UI to provide living documentation for the API
   - `http://localhost:<port>/docs`
 
 You may now interact with the API using the interface provided and the 'Try It Out' buttons. This will interact live with the DB and provide details on responses from the server.
+
+Note that all /users endpoints require authorization with a JWT access token. To obtain a token:
+
+- Please register a user (if not already)
+- Log in to retrieve a token
+- Click on 'Authorize' button in top-right of UI, and paste token with 'BEARER ' prefix.
+- To log out, click on the same button and then 'logout'
