@@ -6,7 +6,7 @@ This RESTful API is built with Node.JS and Express, and utilises TypeScript toge
 
 The API supports CRUD (Create, Read, Update, and Delete) operations for a single `User` resource.
 
-The Joi validation library is used to insure the integrity of input data, while JWT authentication is used to secure and authorize the API. The API also includes a suite of automated tests built with the Mocha framework and Chai assertion library.
+The Joi validation library is used to ensure the integrity of input data, while JWT authentication is used to secure and authorize the API. The API also includes a suite of automated tests built with the Mocha framework and Chai assertion library.
 
 Detailed living documentation is included through the use of Swagger, providing a comprehensive browser-based interface for interaction with and testing the API.
 
