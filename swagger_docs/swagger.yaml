@@ -244,8 +244,8 @@ paths:
     put:
       tags:
         - Users
-      summary: Update user by ID
-      description: Update logged-in user's details by ID
+      summary: Update logged-in user by ID
+      description: Update logged-in user's name or email by ID
       parameters:
         - name: id
           in: path
@@ -290,6 +290,41 @@ paths:
                 type: string
                 description: Error message
                 example: Internal server error
+    delete:
+      tags:
+        - Users
+      summary: Delete logged-in user by ID
+      description: Delete logged-in user from database by ID
+      parameters:
+        - name: id
+          in: path
+          description: User ID
+          required: true
+          type: integer
+      security:
+        - BearerAuth: []
+      responses:
+        200:
+          description: User deleted successfully
+        401:
+          description: Unauthorized
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: Error message
+                example: Unauthorized
+        500:
+          description: Internal server error
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: Error message
+                example: Internal server error
+
 # Authorization
 securityDefinitions:
   BearerAuth:
