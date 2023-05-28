@@ -9,7 +9,7 @@ describe("Auth API", () => {
     // Clean up db once tests complete
     await knex("users")
       // whereIn accepts a property with array values to match
-      .whereIn("email", ["johnsmith@test.com", "jillsmith@test.com"])
+      .whereIn("email", ["johnsmith@mochatest.com", "jillsmith@mochatest.com"])
       .del();
   });
 
@@ -18,7 +18,7 @@ describe("Auth API", () => {
       // Users table should not include this user prior to testing
       const userData = {
         name: "John Smith",
-        email: "johnsmith@test.com",
+        email: "johnsmith@mochatest.com",
         password: "password123",
       };
 
@@ -35,7 +35,7 @@ describe("Auth API", () => {
     it("should return 409 and conflict message if user already exists", async () => {
       const existingUserData = {
         name: "Jill Smith",
-        email: "jillsmith@test.com",
+        email: "jillsmith@mochatest.com",
         password: await bcrypt.hash("password456", 10),
       };
 
@@ -66,7 +66,7 @@ describe("Auth API", () => {
     it("should log in a user and return a token", async () => {
       // Payload
       const loginData = {
-        email: "johnsmith@test.com",
+        email: "johnsmith@mochatest.com",
         password: "password123",
       };
 
@@ -81,7 +81,7 @@ describe("Auth API", () => {
     it("should return 401 and invalid message if password is incorrect", async () => {
       // Payload
       const loginData = {
-        email: "johnsmith@test.com",
+        email: "johnsmith@mochatest.com",
         password: "incorrect",
       };
 

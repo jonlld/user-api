@@ -21,7 +21,7 @@ describe("User API", () => {
     // Assign test user
     testUser = {
       name: "Test User",
-      email: "test@test.com",
+      email: "test@mochatest.com",
       password: await bcrypt.hash("password123", 10),
     };
     // Insert in db, manually return id, assign first element to userIdObj
@@ -36,7 +36,7 @@ describe("User API", () => {
 
   after(async () => {
     // Clean up db once tests complete
-    await knex("users").where({ email: "updated@test.com" }).del();
+    await knex("users").where({ email: "updated@mochatest.com" }).del();
   });
 
   describe("GET /users", () => {
@@ -91,7 +91,7 @@ describe("User API", () => {
     // Updated payload
     const updatedUser = {
       name: "Updated User",
-      email: "updated@test.com",
+      email: "updated@mochatest.com",
     };
 
     it("should update specified user and return 200 when authenticated", async () => {
