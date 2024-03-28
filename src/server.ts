@@ -18,7 +18,7 @@ app.use(urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 
-// Use routers
+// Mount various routers at the below URLS - for path after /auth etc., see routes themselves
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/docs", swaggerRouter);
